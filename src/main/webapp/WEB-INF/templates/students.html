@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Spring Students</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <h1>Список студентов:</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>Id</td>
+            <td>Имя</td>
+            <td>Возраст</td>
+            <td>Действия</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="s : ${students}">
+            <td th:text="${s.id}"></td>
+            <td th:text="${s.name}"></td>
+            <td th:text="${s.age}"></td>
+            <td>
+                <a class="btn btn-success" th:href="@{'/students/edit?id=' + ${s.id}}">Редактировать</a>
+                <a class="btn btn-danger" th:href="@{'/students/delete/' + ${s.id}}">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <span th:text="'Количество студентов: ' + ${students.size()}"/>
+    <form th:action="@{'/students/add'}" method="post">
+        <label>id</label>
+        <input type="number" name="id">
+        <label>Имя</label>
+        <input type="text" name="name">
+        <label>Возраст</label>
+        <input type="number" name="age">
+        <button class="btn btn-primary" type="submit">Создать</button>
+    </form>
+
+</body>
+</html>
